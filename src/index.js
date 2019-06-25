@@ -6,10 +6,19 @@ import "./index.css";
 import App from "./components/App";
 import todoApp from "./reducers";
 import * as serviceWorker from "./serviceWorker";
+import { loadState, saveState } from "./localStorage";
+import throttle from "lodash/throttle";
+const persistedState = loadState();
 
 const store = createStore(
   todoApp,
+  persistedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+store.subscribe(
+  throttle(() => {
+    saveState(store.getState());
+  }, 1000)
 );
 
 ReactDOM.render(
