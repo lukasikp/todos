@@ -5,7 +5,7 @@ import { loadState, saveState } from "./localStorage";
 import throttle from "lodash/throttle";
 
 const configureStore = () => {
-  const persistedState = loadState();
+  const persistedState = { todos: loadState() };
 
   const store = createStore(
     todoApp,
