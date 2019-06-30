@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
-import { CustomInput, CustomSelect } from "./fields";
+import { Field, FieldArray, reduxForm } from "redux-form";
+import { CustomInput, CustomSelect, discounts } from "./fields";
+import capitalize from "capitalize";
 import {
   required,
   minLength,
@@ -22,6 +23,7 @@ class RegisterForm extends Component {
           type="text"
           label="First name"
           validate={[required]}
+          normalize={capitalize}
         />
         <Field
           name="surname"
@@ -29,6 +31,7 @@ class RegisterForm extends Component {
           type="text"
           label="Surname"
           validate={[required]}
+          normalize={capitalize}
         />
         <Field
           name="username"
@@ -62,6 +65,7 @@ class RegisterForm extends Component {
           type="checkbox"
           label="Sign up to newsletter?"
         />
+        <FieldArray name="discountCodes" component={discounts} />
         <button type="submit">Submit</button>
       </form>
     );
