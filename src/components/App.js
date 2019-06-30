@@ -3,12 +3,12 @@ import AddTodo from "./AddTodo";
 import VisibleTodoList from "./VisibleTodoList";
 import Footer from "./Footer";
 
-function App() {
+function App({ match }) {
   return (
     <div className="App">
       <h1>todos</h1>
       <AddTodo />
-      <VisibleTodoList />
+      <VisibleTodoList filter={match.params.filter || "all"} />
       <Footer />
     </div>
   );
