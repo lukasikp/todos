@@ -1,4 +1,5 @@
 import React from "react";
+import { Field } from "redux-form";
 import cx from "classnames";
 
 const getValidityClassName = meta => {
@@ -26,7 +27,7 @@ export const CustomInput = props => {
       )}
     >
       <label>{label}</label>
-      <input {...input} type={type} />
+      <input {...input} type={type} autoFocus={props.autoFocus} />
       {meta.error && meta.touched && (
         <div className="feedback-text error-text">{meta.error}</div>
       )}
@@ -41,5 +42,27 @@ export const CustomSelect = props => (
       <option value="tabs">Tabs</option>
       <option value="spaces">Spaces</option>
     </select>
+  </div>
+);
+
+export const discounts = ({ fields }) => (
+  <div className="custom-field-array-container">
+    {fields.map((code, index) => (
+      <div key={index} className="field-array-item">
+        <Field
+          name={code}
+          type="text"
+          component={CustomInput}
+          label={`Discount Code #${index + 1}`}
+          autoFocus
+        />
+        <button type="button" onClick={() => fields.remove(index)}>
+          &times;
+        </button>
+      </div>
+    ))}
+    <button type="button" onClick={() => fields.push()}>
+      Add {!fields.length ? "Discount Code(s)" : "Another"}
+    </button>
   </div>
 );
